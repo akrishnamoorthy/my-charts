@@ -1,14 +1,14 @@
-# Default values for searchx.
+# Default values for accountsearch.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 3
+replicaCount: 1
 
 image:
   repository: "amritha1811/gitop-search"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "v3"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -37,7 +37,7 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: NodePort
+  type: ClusterIP
   port: 80
 
 ingress:
@@ -68,12 +68,10 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
+configmap:
+  solr.url: http://host.docker.internal
+  solr.username: admin
+  solr.pwd: 5qfOrZpA7u
 
 nodeSelector: {}
 
@@ -81,9 +79,9 @@ tolerations: []
 
 affinity: {}
 
-solr:
-  replicaCount: 11
-  collectionReplicas: 1
-  collectionShards: 1
-  zookeeper:
-   replicaCount: 1
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80

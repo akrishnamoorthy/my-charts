@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "searchx.fullname" . }}
+  name: {{ include "accountsearch.fullname" . }}
   labels:
-    {{- include "searchx.labels" . | nindent 4 }}
+    {{- include "accountsearch.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "searchx.selectorLabels" . | nindent 6 }}
+      {{- include "accountsearch.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,13 +18,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "searchx.selectorLabels" . | nindent 8 }}
+        {{- include "accountsearch.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "searchx.serviceAccountName" . }}
+      serviceAccountName: {{ include "accountsearch.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -33,6 +33,22 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: solr.url
+            valueFrom:
+              configMapKeyRef:
+                name: solr-env-config
+                key: solr_url
+          - name: solr.user
+            valueFrom:
+              configMapKeyRef:
+                name: solr-env-config
+                key: solr_user
+          - name: solr.pwd
+            valueFrom:
+              configMapKeyRef:
+                name: solr-env-config
+                key: solr_pwd
           ports:
             - name: http
               containerPort: 8080

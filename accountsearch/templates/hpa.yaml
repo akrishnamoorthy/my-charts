@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "searchx.fullname" . }}
+  name: {{ include "accountsearch.fullname" . }}
   labels:
-    {{- include "searchx.labels" . | nindent 4 }}
+    {{- include "accountsearch.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "searchx.fullname" . }}
+    name: {{ include "accountsearch.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:

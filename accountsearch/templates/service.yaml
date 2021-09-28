@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "searchx.fullname" . }}
+  name: {{ include "accountsearch.fullname" . }}
   labels:
-    {{- include "searchx.labels" . | nindent 4 }}
+    {{- include "accountsearch.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "searchx.selectorLabels" . | nindent 4 }}
+    {{- include "accountsearch.selectorLabels" . | nindent 4 }}
