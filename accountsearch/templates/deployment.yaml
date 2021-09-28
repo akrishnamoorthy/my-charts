@@ -49,6 +49,11 @@ spec:
               configMapKeyRef:
                 name: solr-env-config
                 key: solr_pwd
+          - name: solr.random
+            valueFrom:
+              configMapKeyRef:
+                name: solr-env-config
+                key: solr_user
           ports:
             - name: http
               containerPort: 8080
