@@ -69,7 +69,7 @@ resources: {}
   #   memory: 128Mi
 
 configmap:
-  solr.url: http://host.docker.internal
+  solr.url: http://host.docker.internal:8983/solr/accounts
   solr.username: admin
   solr.pwd: 5qfOrZpA7u
 
