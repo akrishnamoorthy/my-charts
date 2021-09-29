@@ -37,22 +37,22 @@ spec:
           - name: solr.url
             valueFrom:
               configMapKeyRef:
-                name: solr-env-config
+                name: {{ include "accountsearch.fullname" . }}
                 key: solr_url
           - name: solr.user
             valueFrom:
               configMapKeyRef:
-                name: solr-env-config
+                name: {{ include "accountsearch.fullname" . }}
                 key: solr_user
           - name: solr.pwd
             valueFrom:
               configMapKeyRef:
-                name: solr-env-config
+                name: {{ include "accountsearch.fullname" . }}
                 key: solr_pwd
           - name: solr.random
             valueFrom:
               configMapKeyRef:
-                name: solr-env-config
+                name: {{ include "accountsearch.fullname" . }}
                 key: solr_user
           ports:
             - name: http
