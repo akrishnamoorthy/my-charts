@@ -6,6 +6,6 @@ metadata:
   labels:
     {{- include "accountsearch.labels" . | nindent 4 }}
 data:
-  solr_url:  'http://host.docker.internal:8983/solr/accounts'
-  solr_user:  'admin'
-  solr_pwd:  '5qfOrZpA7u'
+  solr_url:  {{ .Values.solr.url }}
+  solr_user: {{ .Values.solr.username }}
+  solr_pwd:  {{ .Values.solr.pwd }}
